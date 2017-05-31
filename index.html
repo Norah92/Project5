@@ -13,7 +13,7 @@
         left: 0px;
         z-index: 5;
         height:100%;
-		    width: 250px;
+		width: 250px;
         background-color: white;
         padding: 5px;
         border: 1px solid #999;
@@ -30,65 +30,26 @@
 
 <span id="panel"> 
        <p><strong> Places in My Favourite Neighborhood </strong></p>
-	   <select data-bind="options: categories, value: filter"></select>
-	   <ul data-bind="foreach: filteredItems"> 
-       <li data-bind="text: title"></li>
-       </ul> 
+	   <div>
+	   <select data-bind="options: categories, value: selectedCategory"></select>
+	   </div>
+	   
+	   <div>
+	   <ul data-bind="foreach: selectLocation"> 
+	   <li data-bind="visible: show, click: showMarker">
+	   <li data-bind="text: title"></li>
+	 </li>
+    </ul>     
+</div>   
+	  
 	  
 </span>
 <div id ="map"></div>
 <script>
 
-var map;
-var markers =[];
-var locations;
-
-function initMap() { 
-map = new google.maps.Map(document.getElementById('map') , {
-	   center: {lat:40.9910381, lng:28.6498144}, 
-	   zoom: 14});
-	   
-	   var largeInfoWindow = new google.maps.InfoWindow();
-	   var bounds = new google.maps.LatLngBounds();
-	   
-	   for (var i = 0; i <locations.length; i++) {
-	     var position = locations[i].location;
-		 var title = locations[i].title;
-		 var marker = new google.maps.Marker({
-		   map:map,
-		   position:position,
-		   title:title,
-		   animation: google.maps.Animation.Drop,
-		   id: i 
-		 });
-		 
-		 markers.push(marker);
-		 bounds.extend(marker.position);
-		 marker.addListener('click',function() {
-		 populateInfoWindow(this, largeInfoWindow );
-		 });
-	   }
-	   
-	   function populateInfoWindow(marker, infowindow) {
-	   
-	     if(infowindow.marker != marker) {
-		     infowindow.marker = marker;
-			 infowindow.setContent('<div>' +marker.title +  '</div>');
-			 infowindow.open(map, marker);
-			 infowindow.addListener('closeclick', function() {
-			 //infowindow.setMarker(null);
-			   });
-		 }
-	   } 
-	   
-	   map.fitBounds(bounds);	
-	        
-	   
-}
-
 </script> 
 
-<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDD7dWlaYOIw597PN_969tiAEKSBP9uVJc&v=3&callback=initMap"></script>
+<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDD7dWlaYOIw597PN_969tiAEKSBP9uVJc&v=3&callback=initMap" onerror="mapError()"></script>
 <script src='js/knockout-3.4.2.js'></script> 
 <script src="js/jquery-3.2.1.js"></script> 
 <script src='js/app.js'></script> 
