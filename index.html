@@ -36,9 +36,7 @@
 	   
 	   <div>
 	   <ul data-bind="foreach: selectLocation"> 
-	   <li data-bind="visible: show, click: showMarker">
-	   <li data-bind="text: title"></li>
-	 </li>
+	   <li data-bind="text: title, click: showInfo, visible: show"></li> 
     </ul>     
 </div>   
 	  
