@@ -8,7 +8,8 @@ var locations = [
 	   ];
 
 // Creates the map	       
-   function initMap() {	   
+   function initMap() {
+   var markers =[]; 
    map = new google.maps.Map(document.getElementById('map') , {
 	   center: {lat:40.9910381, lng:28.6498144}, 
 	   zoom: 14});
@@ -73,7 +74,6 @@ var locations = [
 	function ViewModel() {
 	var map;
 	var marker;
-        var markers =[]; 
 	var self = this;
 	self.categories = ko.observableArray(["All", "Coffee Shop", "Pharmacy", "Mall", "Supermarket", "Hotel"]);
 	self.selectedCategory = ko.observable('');
