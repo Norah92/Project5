@@ -72,7 +72,8 @@ var locations = [
         // ViewModel function
 	function ViewModel() {
 	var map;
-	var marker;	
+	var marker;
+        var markers =[]; 
 	var self = this;
 	self.categories = ko.observableArray(["All", "Coffee Shop", "Pharmacy", "Mall", "Supermarket", "Hotel"]);
 	self.selectedCategory = ko.observable('');
