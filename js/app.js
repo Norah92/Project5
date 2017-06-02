@@ -1,10 +1,10 @@
 // locations array
 var locations = [
-	   {title: 'Kaya Ramada Plaza', location: {lat:41.023046, lng:28.627094}, category: 'Hotel', placeid: 'ChIJ5zo1gAJftRQRGBwRuGdD1eE', show: ko.observable(true)},
-	   {title: 'Perlavista', location: {lat: 41.016396, lng:28.6274} , category: 'Mall', placeid: 'ChIJlT27DgBftRQRpEX7eg-WgkM', show: ko.observable(true)},
-	   {title: 'Starbucks', location: {lat: 41.003917, lng:28.687966} , category: 'Coffee Shop', placeid: 'ChIJATulU4ugyhQRotaCYEtq1TQ', show: ko.observable(true)},
-	   {title: 'Kipa', location: {lat: 41.01580269999999, lng:28.6262481} , category: 'Supermarket', placeid:'ChIJdwNYa0letRQR4Fm4mpkdS9Y', show: ko.observable(true)},
-	   {title: 'Gratis', location: {lat: 41.0098014, lng:28.6252695} , category: 'Pharmacy', placeid: 'ChIJo6B8TFNetRQR8BPgv09NlAQ', show: ko.observable(true)}
+	   {title: 'Kaya Ramada Plaza', location: {lat:41.023046, lng:28.627094}, venID: "4bd324e9caff95212019d4f0", category: 'Hotel', show: ko.observable(true)},
+	   {title: 'Perlavista', location: {lat: 41.016396, lng:28.6274} , venID: "4cc6d8c8d43ba1433b5c76f8", category: 'Mall', show: ko.observable(true)},
+	   {title: 'Starbucks', location: {lat: 40.996779, lng:28.627213} , venID: "5860c501f595726398268d19", category: 'Coffee Shop', show: ko.observable(true)},
+	   {title: 'Lochka', location: {lat: 41.004464, lng:28.636989} , venID: "57358755498e7caf6f5aff66",category: 'Restaurant', show: ko.observable(true)},
+	   {title: 'Aruna', location: {lat: 41.000273, lng:28.598587} , venID: "556eb8c1498e5fc6fe5442c0", category: 'Restaurant', show: ko.observable(true)}
 	   ];
 
 // Creates the map	       
@@ -20,7 +20,7 @@ var locations = [
 	   for (var i = 0; i <locations.length; i++) {
 	         var position = locations[i].location;
 		 var title = locations[i].title;
-		 var placeid = locations[i].placeid;
+		 var venID = locations[i].venID;
 		 // Creates the markers
 		 var marker = new google.maps.Marker({
 		   map:map,
@@ -28,7 +28,7 @@ var locations = [
 		   title:title,
 		   show: true,
 		   animation: google.maps.Animation.DROP,
-		   id: i		   
+		   venID: venID		   
 		 });
 		 // Attaches marker to locations []
 		 locations[i].marker = marker;
@@ -49,13 +49,28 @@ var locations = [
 		 
 	   }
 	   
-	   function populateInfoWindow(marker, infowindow) {
+	    function populateInfoWindow(marker, infowindow) {
+	   
 	     if(infowindow.marker != marker) {
 		     infowindow.marker = marker;
-			 infowindow.setContent('<div>' +marker.title + '</div>');
-			 infowindow.open(map, marker);
+			 var clientID = "HQBB51IZ0GLHSB4UQYXCEHLMFP0KZ0V4JDQQ5MNN3CEHAFS2";
+			 var clientSecret = "J4YLF1LPXAV4IUM5XVZU2BRS4G4LWZVUSB25FJ4PVD2BMOTI";
+			 var version = "20170101";
+			 var apiURL ='https://api.foursquare.com/v2/venues/'+marker.venID+'?client_id='+clientID+'&client_secret='+clientSecret+'&v='+version;
+			 $.ajax ({
+				 url: apiURL
+			 }).done(function(data) {
+				 infowindow.setContent('<div>' +marker.title + '<br>' + data.response.venue.location.formattedAddress + '<br>' +  '</div>');
+				 infowindow.open(map, marker);
+			 }).fail(function(x, status, error) {
+				 alert("ERROR");
+				 console.log("Error:"+ error);
+				 console.log("Status:"+ status);
+				 console.dir(x);
+			 })
+			 
 			 infowindow.addListener('closeclick', function() {
-			 //infowindow.setMarker(null);
+			 infowindow.setMarker(null);
 			   });
 		 }
 	   } 
