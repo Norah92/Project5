@@ -1,34 +1,16 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <title>Neighborhood Map Project</title>
 
-<style type="text/css">
-     html, body { height: 100%; margin: 0; padding: 0; }
-     #map { height: 100%; }
-	#panel {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        z-index: 5;
-        height:100%;
-	width: 250px;
-        background-color: white;
-        padding: 5px;
-        border: 1px solid #999;
-        text-align: center;
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 10px;
-      }
- </style>
- 
 </head>
 
 <body>
 
-<span id="panel"> 
+<div id="panel"> 
        <p><strong> Places in My Favourite Neighborhood </strong></p>
 	   <div>
 	   <select data-bind="options: categories, value: selectedCategory"></select>
@@ -41,17 +23,17 @@
 </div>   
 	  
 	  
-</span>
+</div>
 <div id ="map"></div>
 <script>
 
 </script> 
 
-<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDD7dWlaYOIw597PN_969tiAEKSBP9uVJc&v=3&callback=initMap" onerror="mapError()"></script>
+
 <script src='js/knockout-3.4.2.js'></script> 
 <script src="js/jquery-3.2.1.js"></script> 
 <script src='js/app.js'></script> 
-
+<script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDD7dWlaYOIw597PN_969tiAEKSBP9uVJc&v=3&callback=initMap" onerror="mapError()"></script>
 </body>
 
 </html>
