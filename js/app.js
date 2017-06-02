@@ -90,7 +90,7 @@ var locations = [
 	var map;
 	var marker;
 	var self = this;
-	self.categories = ko.observableArray(["All", "Coffee Shop", "Pharmacy", "Mall", "Supermarket", "Hotel"]);
+	self.categories = ko.observableArray(["All", "Coffee Shop", "Pharmacy", "Mall", "Hotel"]);
 	self.selectedCategory = ko.observable('');
 	self.selectLocation = ko.observableArray(locations);
         self.locations = ko.observableArray([]);
